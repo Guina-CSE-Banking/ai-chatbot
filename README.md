@@ -53,7 +53,6 @@ The following environment variables are required to run the application:
 - `FMP_API_KEY` - API key from [Financial Modeling Prep](https://financialmodelingprep.com/) for stock data
 - `REDIS_URL` - Redis connection URL for caching (default: `redis://localhost:6379`)
 - `DATABASE_URL` - Neon PostgreSQL connection URL
-- `POSTGRES_URL` - Same as DATABASE_URL (for compatibility)
 - `AUTH_SECRET` - Secret key for authentication
 - `XAI_API_KEY` - xAI Grok API key for AI responses
 

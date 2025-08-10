@@ -72,7 +72,7 @@ async function getRedisClient() {
 }
 
 // Database configuration
-const client = postgres(process.env.POSTGRES_URL!);
+const client = postgres(process.env.DATABASE_URL!);
 const db = drizzle(client);
 
 // Function to normalize ticker based on pattern
