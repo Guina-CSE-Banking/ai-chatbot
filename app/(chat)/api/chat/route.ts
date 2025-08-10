@@ -23,6 +23,7 @@ import { createDocument } from '@/lib/ai/tools/create-document';
 import { updateDocument } from '@/lib/ai/tools/update-document';
 import { requestSuggestions } from '@/lib/ai/tools/request-suggestions';
 import { getWeather } from '@/lib/ai/tools/get-weather';
+import { getStockPortfolio } from '@/lib/ai/tools/get-stock-portfolio';
 import { isProductionEnvironment } from '@/lib/constants';
 import { myProvider } from '@/lib/ai/providers';
 import { entitlementsByUserType } from '@/lib/ai/entitlements';
@@ -161,6 +162,7 @@ export async function POST(request: Request) {
               ? []
               : [
                   'getWeather',
+                  'getStockPortfolio',
                   'createDocument',
                   'updateDocument',
                   'requestSuggestions',
@@ -168,6 +170,7 @@ export async function POST(request: Request) {
           experimental_transform: smoothStream({ chunking: 'word' }),
           tools: {
             getWeather,
+            getStockPortfolio,
             createDocument: createDocument({ session, dataStream }),
             updateDocument: updateDocument({ session, dataStream }),
             requestSuggestions: requestSuggestions({
@@ -222,6 +225,16 @@ export async function POST(request: Request) {
     if (error instanceof ChatSDKError) {
       return error.toResponse();
     }
+    
+    // Log structured error with more details
+    console.error('Erro inesperado na rota de chat:', {
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+      timestamp: new Date().toISOString(),
+      code: (error as any)?.code || 'UNKNOWN'
+    });
+    
+    return new ChatSDKError('offline:chat', 'Erro inesperado no processamento do chat').toResponse();
   }
 }
 
