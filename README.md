@@ -129,7 +129,7 @@ The application includes a financial analysis tool that can query stock portfoli
 #### Example 1: Basic Portfolio Query
 **Prompt:**
 ```
-"Como estão as ações AAPL, MSFT e GOOGL hoje?"
+"Como estão as ações AAPL, MSFT e GOOG hoje?"
 ```
 
 **Expected Response Structure:**
@@ -137,7 +137,7 @@ The application includes a financial analysis tool that can query stock portfoli
 {
   "success": true,
   "timestamp": "2024-01-15T10:30:00Z",
-  "requestedTickers": ["AAPL", "MSFT", "GOOGL"],
+  "requestedTickers": ["AAPL", "MSFT"],
   "stocksFound": 3,
   "stocks": [
     {
@@ -147,18 +147,91 @@ The application includes a financial analysis tool that can query stock portfoli
       "change": 2.15,
       "changePercentage": 1.17,
       "volume": 45678900,
-      "marketCap": 2850000000000
+      "marketCap": 2850000000000,
+      "exchange": "NASDAQ",
+      "dayLow": 183.50,
+      "dayHigh": 186.75,
+      "yearHigh": 199.62,
+      "yearLow": 164.08,
+      "priceAvg50": 180.45,
+      "priceAvg200": 175.32
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft Corporation",
+      "price": 378.92,
+      "change": -1.25,
+      "changePercentage": -0.33,
+      "volume": 23456789,
+      "marketCap": 2810000000000,
+      "exchange": "NASDAQ",
+      "dayLow": 377.10,
+      "dayHigh": 380.50,
+      "yearHigh": 384.30,
+      "yearLow": 309.45,
+      "priceAvg50": 375.20,
+      "priceAvg200": 365.80
     }
   ],
   "portfolioMetrics": {
-    "totalValue": 555.75,
-    "averageChange": 1.05,
-    "bestPerformer": {"ticker": "AAPL", "changePercentage": 1.17},
-    "worstPerformer": {"ticker": "MSFT", "changePercentage": 0.85}
+    "totalValue": 702.62,
+    "averageChange": 0.48,
+    "totalVolume": 87900121,
+    "totalMarketCap": 7410000000000,
+    "bestPerformer": {
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "price": 185.25,
+      "change": 2.15,
+      "changePercentage": 1.17,
+      "volume": 45678900,
+      "marketCap": 2850000000000,
+      "exchange": "NASDAQ",
+      "dayLow": 183.50,
+      "dayHigh": 186.75,
+      "yearHigh": 199.62,
+      "yearLow": 164.08,
+      "priceAvg50": 180.45,
+      "priceAvg200": 175.32
+    },
+    "worstPerformer": {
+      "ticker": "MSFT",
+      "name": "Microsoft Corporation",
+      "price": 378.92,
+      "change": -1.25,
+      "changePercentage": -0.33,
+      "volume": 23456789,
+      "marketCap": 2810000000000,
+      "exchange": "NASDAQ",
+      "dayLow": 377.10,
+      "dayHigh": 380.50,
+      "yearHigh": 384.30,
+      "yearLow": 309.45,
+      "priceAvg50": 375.20,
+      "priceAvg200": 365.80
+    }
   },
   "exchangeRate": {
     "usdToBrl": 5.20,
-    "usdToBrlFormatted": "R$ 5,20"
+    "usdToBrlFormatted": "R$ 5,20",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "source": "Financial Modeling Prep API"
+  },
+  "detectedUserLanguage": "pt",
+  "responseGuidelines": {
+    "CRITICAL_LANGUAGE_RULE": "RESPONDER SEMPRE NO MESMO IDIOMA DA PERGUNTA DO USUÁRIO - Este é um requisito absoluto!",
+    "currency_display": "Ações brasileiras: mostrar em BRL primeiro. Ações americanas: mostrar em USD primeiro. Fazer conversões conforme idioma da pergunta.",
+    "no_assumptions": "JAMAIS presumir quantidades de ativos. JAMAIS calcular net worth sem dados explícitos de quantidade.",
+    "response_scope": "Responder APENAS o que foi perguntado especificamente",
+    "analysis_suggestions": "Pode sugerir análises adicionais, mas sem assumir dados não fornecidos",
+    "language_detection_hint": "Usuário perguntou em: PORTUGUÊS",
+    "currency_examples": {
+      "pt_question_us_stock": "AAPL está a $150.25 (R$ 781,30 no câmbio atual de R$ 5,20)",
+      "en_question_br_stock": "BBAS3.SA is at R$ 43.94 ($8.45 USD at current rate of R$ 5.20 per dollar)",
+      "pt_question_br_stock": "BBAS3 está a R$ 43.94",
+      "en_question_us_stock": "AAPL is at $150.25"
+    },
+    "exchange_rate_display": "Sempre usar a versão formatada: usdToBrlFormatted (ex: R$ 5,20) ao invés do número bruto"
   }
 }
 ```
